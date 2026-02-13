@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:Georgia,serif;
+  background:linear-gradient(-45deg,#ff758c,#ff7eb3,#6a11cb,#2575fc);
+  background-size:400% 400%;
+  animation:bg 15s ease infinite;
+  min-height:100vh;
+  overflow-x:hidden;
+  padding:20px;
+}
+@keyframes bg{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* HEADER */
+.header{text-align:center;color:white;margin-bottom:30px;}
+.title{
+  font-size:2.1em;
+  background:linear-gradient(90deg,#fff,#ffd6ec,#fff);
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:shine 3s linear infinite;
+}
+@keyframes shine{
+  0%{background-position:-400px;}
+  100%{background-position:400px;}
+}
+.subtitle{margin-top:10px;font-size:1.1em;opacity:.9;}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:18px;
+  max-width:900px;
+  margin:auto;
+}
+
+/* CARD */
+.card{perspective:1000px;height:190px;}
+.inner{
+  position:relative;
+  width:100%;
+  height:100%;
+  transition:transform .8s;
+  transform-style:preserve-3d;
+}
+.card.flip .inner{transform:rotateY(180deg);}
+
+.face{
+  position:absolute;
+  width:100%;
+  height:100%;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:15px;
+  backface-visibility:hidden;
+  box-shadow:0 8px 25px rgba(0,0,0,.3);
+}
+
+/* FRONT */
+.front{
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(8px);
+  color:white;
+  font-size:1.05em;
+}
+
+/* BACK */
+.back{
+  background:white;
+  transform:rotateY(180deg);
+  color:#444;
+  font-size:.95em;
+  line-height:1.5;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  color:white;
+  margin-top:50px;
+  font-size:1.3em;
+  line-height:1.6;
+  animation:fade 3s forwards;
+  opacity:0;
+}
+@keyframes fade{to{opacity:1;}}
+
+/* HEARTS */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation:float linear forwards;
+  opacity:.6;
+  pointer-events:none;
+}
+@keyframes float{
+  to{transform:translateY(-110vh) rotate(360deg);}
+}
+
+/* MOBILE */
+@media(max-width:500px){
+  .title{font-size:1.7em;}
+  .card{height:170px;}
+}
+
+/* MISS ME BUTTON AND CARD */
+.missMeButton{
+  padding:15px 25px;
+  font-size:20px;
+  border:none;
+  border-radius:40px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+  box-shadow:0 4px 15px rgba(0,0,0,0.2);
+  transition:0.3s;
+  margin-top:30px;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+.missMeButton:active{transform:scale(0.9);}
+
+.missMeCard{
+  position:fixed;
+  bottom:-100%;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  height:70%;
+  max-width:400px;
+  background:white;
+  padding:25px;
+  border-radius:25px;
+  box-shadow:0 -5px 25px rgba(0,0,0,0.4);
+  transition:.5s;
+  text-align:center;
+  color:white;
+  overflow:hidden;
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+.missMeCard::before{
+  content:"";
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.4); /* overlay for readability */
+  border-radius:25px;
+  z-index:1;
+}
+.missMeCard.show{bottom:10%;}
+
+.missMeCard .quote{
+  margin:15px 0;
+  font-size:18px;
+  font-weight:bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  z-index:2;
+}
+
+.missMeCard .close{
+  margin-top:15px;
+  background:#ff758f;
+  border:none;
+  padding:10px 20px;
+  border-radius:25px;
+  color:white;
+  font-weight:bold;
+  z-index:2;
+  cursor:pointer;
+}
+
+.flowers{
+  position:absolute;
+  font-size:25px;
+  animation:floatFlower linear forwards;
+  pointer-events:none;
+}
+@keyframes floatFlower{
+  0%{transform:translateY(0) rotate(0deg);opacity:1;}
+  100%{transform:translateY(-120vh) rotate(360deg);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="title">Reasons My Heart Belongs To You 💗</div>
+  <div class="subtitle">Even miles apart… you’re still my closest person 🌍❤️</div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="footer">
+No distance can weaken what my heart feels for you…  
+<br>I loved you yesterday, I love you today,  
+<br>and I will love you in every tomorrow Insha Allah 💞
+</div>
+
+<!-- MISS ME BUTTON -->
+<button class="missMeButton" onclick="showMissMe()">💌 Miss Me</button>
+
+<!-- MISS ME CARD -->
+<div class="missMeCard" id="missMeCard">
+  <h2 style="z-index:2;">For You 🥺❤️</h2>
+  <div class="quote">🌙 “Allah wrote your name next to mine before we were even born.”</div>
+  <div class="quote">🤲 “If loving you is a dua… I pray it forever.”</div>
+  <div class="quote">💞 “Maybe distance tests us, but Allah rewards patience.”</div>
+  <button class="close" onclick="hideMissMe()">Close 💕</button>
+</div>
+
+<script>
+/* Titles and Reasons for Cards */
+const titles=[
+  "Open this 💌","Read me 🥺","Secret 💖","Tap gently 💗",
+  "For you 🌸","Click Dear 😘","Love note 💕","Just for you 💞"
+];
+
+const reasons=[
+  "I swear even the stars get jealous… because they see how I look at you.",
+  "If distance were a test… loving you would still be my easiest answer.",
+  "I don’t miss you sometimes… I miss you every second.",
+  "You didn’t just steal my heart… you made it your home.",
+  "Your voice is my favorite comfort song.",
+  "If hugs could travel… you’d be crushed by mine right now.",
+  "I fall in love with you again every single day.",
+  "Even silence feels beautiful when it’s with you.",
+  "You’re not just my love… you’re my peace.",
+  "My world feels softer when you smile.",
+  "If loving you is a dream… I never want to wake up.",
+  "You’re the only person who can make my bad day apologize.",
+  "I don’t need paradise… I just need you.",
+  "You’re the reason my phone battery dies fast.",
+  "My heart learned patience because of you.",
+  "You make waiting feel romantic.",
+  "You’re the safest place I’ve ever known.",
+  "I smile like an idiot whenever I see your name.",
+  "You’re not my option… you’re my always.",
+  "Even miles away… you still hold my hand in my heart.",
+  "I never believed in soulmates… until you happened.",
+  "You’re my calm in every storm.",
+  "You make my world brighter just by existing.",
+  "If I had one wish… it would always be you.",
+  "You’re the only notification I pray for.",
+  "My favorite hobby is loving you.",
+  "You’re my once-in-a-lifetime person.",
+  "You didn’t change my life… you became it.",
+  "You’re the reason I believe distance is powerless.",
+  "You’re not far… you’re just on the other side of my heartbeat.",
+  "You make missing you feel beautiful.",
+  "My heart whispers your name even when I’m silent.",
+  "You’re my favorite miracle.",
+  "If love had a face… it would be yours.",
+  "You’re the softest part of my life.",
+  "I don’t want perfect… I want you.",
+  "You’re my dream I never want to wake from.",
+  "You’re my safe place in a loud world.",
+  "You’re my favorite feeling.",
+  "You’re the best thing that ever happened to me.",
+  "You make my heart melt without trying.",
+  "You’re my comfort, my calm, my chaos.",
+  "You’re my sweetest addiction.",
+  "You’re the reason love feels real.",
+  "You’re my forever smile.",
+  "You’re my heart’s favorite person.",
+  "You’re the story I’ll tell forever.",
+  "You’re my always and beyond.",
+  "You’re my greatest blessing.",
+  "You’re YOU — and that’s why I’m completely yours ❤️"
+];
+
+const grid=document.getElementById("grid");
+
+reasons.forEach(text=>{
+  let card=document.createElement("div");
+  card.className="card";
+  let title=titles[Math.floor(Math.random()*titles.length)];
+
+  card.innerHTML=`
+    <div class="inner">
+      <div class="face front">${title}</div>
+      <div class="face back">${text}</div>
+    </div>
+  `;
+  card.addEventListener("click",()=>card.classList.toggle("flip"));
+  grid.appendChild(card);
+});
+
+/* floating hearts */
+function heart(){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.textContent="❤";
+  h.style.left=Math.random()*100+"%";
+  h.style.fontSize=(Math.random()*20+15)+"px";
+  h.style.animationDuration=(Math.random()*5+5)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),10000);
+}
+setInterval(heart,900);
+
+/* MISS ME PASSWORD */
+const missMePassword = "ahafqa";
+
+function showMissMe(){
+  const userPass = prompt("Enter the secret password 🥺❤️");
+  if(userPass && userPass.toLowerCase() === missMePassword.toLowerCase()){
+    const missMeCard = document.getElementById("missMeCard");
+    missMeCard.style.backgroundImage="url('shaf.jpeg')";
+    missMeCard.classList.add("show");
+    blastFlowers();
+  } else if(userPass !== null) {
+    alert("Incorrect password 💔 Try again!");
+  }
+}
+
+function hideMissMe(){
+  document.getElementById("missMeCard").classList.remove("show");
+}
+
+function blastFlowers(){
+  for(let i=0;i<25;i++){
+    let f=document.createElement("div");
+    f.className="flowers";
+    const flowers=["🌸","🌺","🌷","💐","🌼"];
+    f.textContent=flowers[Math.floor(Math.random()*flowers.length)];
+    f.style.left=Math.random()*100+"%";
+    f.style.animationDuration=(3+Math.random()*3)+"s";
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),6000);
+  }
+}
+</script>
+
+</body>
+</html>
