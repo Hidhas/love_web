@@ -10,7 +10,7 @@
 
 body{
   font-family:sans-serif,serif;
-  background:linear-gradient(-45deg,#ff758c,#ff7eb3,#6a11cb,#2575fc);
+  background:linear-gradient(-45deg,#ff1c42,#ff1778,#6a11cb,#2575fc);
   background-size:400% 400%;
   animation:bg 15s ease infinite;
   min-height:100vh;
@@ -231,7 +231,7 @@ body{
 .floating-heart {
   position: absolute;
   font-size: 18px;
-  color: #ff4d6d;
+  color: #ff849b;
   animation: floatHeart 4s linear forwards;
   opacity: 0.8;
   pointer-events: none;
@@ -267,14 +267,37 @@ body{
 .typing-text {
   text-shadow: 0 0 5px #ff4d6d, 0 0 10px #ff758f, 0 0 20px #ff4d6d;
 }
+
+/* add extra here */
+.back {
+  background:white;
+  transform:rotateY(180deg);
+  color:#ffe3e9;
+  font-weight:bold;
+  font-size:1em;
+  line-height:1.5;
+  background: linear-gradient(90deg, #fa778f, #ffeaee, #ffb6c1);
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: textShine 7s linear infinite;
+}
+
+@keyframes textShine {
+  0%{background-position: -400px;}
+  100%{background-position: 400px;}
+}
+
+
+
+
 </style>
 </head>
 
 <body>
 
 <div class="header">
-  <div class="title">Reasons My Heart Belongs To You 💗</div>
-  <div class="subtitle">Even miles apart… you’re still my closest person 🌍❤️</div>
+  <div class="title"><b> Allah Wrote Us Before We Met </b> 💗</div>
+  <div class="subtitle">If loving you is written in my destiny, then I will thank Allah in every lifetime. 🌍❤️</div>
 </div>
 
 <div class="grid" id="grid"></div>
