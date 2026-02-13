@@ -9,7 +9,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-  font-family:Georgia,serif;
+  font-family:sans-serif,serif;
   background:linear-gradient(-45deg,#ff758c,#ff7eb3,#6a11cb,#2575fc);
   background-size:400% 400%;
   animation:bg 15s ease infinite;
@@ -202,6 +202,71 @@ body{
   0%{transform:translateY(0) rotate(0deg);opacity:1;}
   100%{transform:translateY(-120vh) rotate(360deg);opacity:0;}
 }
+
+/* Romantic footer text */
+.footer {
+  text-align: center;
+  color: #fff;
+  margin-top: 50px;
+  font-size: 1.4em;
+  line-height: 1.8;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fade-in + heartbeat animation */
+.romantic-text {
+  opacity: 0;
+  animation: fadeInHeart 4s ease forwards;
+  position: relative;
+}
+
+@keyframes fadeInHeart {
+  0% { opacity: 0; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Floating small hearts animation */
+.floating-heart {
+  position: absolute;
+  font-size: 18px;
+  color: #ff4d6d;
+  animation: floatHeart 4s linear forwards;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+@keyframes floatHeart {
+  0% { transform: translateY(0) scale(1); opacity: 0.8; }
+  50% { transform: translateY(-50px) scale(1.2); opacity: 1; }
+  100% { transform: translateY(-120px) scale(0.8); opacity: 0; }
+}
+
+/* Typing animation */
+.typing-text {
+  border-right: 3px solid #fff;
+  width: 0;
+  overflow: hidden;
+  display: inline-block;
+  animation: typing 6s steps(100, end) forwards, blink 0.75s step-end infinite;
+}
+
+/* Typing keyframes */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Blinking cursor */
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* Glow effect */
+.typing-text {
+  text-shadow: 0 0 5px #ff4d6d, 0 0 10px #ff758f, 0 0 20px #ff4d6d;
+}
 </style>
 </head>
 
@@ -215,9 +280,11 @@ body{
 <div class="grid" id="grid"></div>
 
 <div class="footer">
-No distance can weaken what my heart feels for you…  
-<br>I loved you yesterday, I love you today,  
-<br>and I will love you in every tomorrow Insha Allah 💞
+  <p class="typing-text" >
+    No distance can weaken what my heart feels for you… 💖<br>
+    I loved you yesterday, I love you today, <br>
+    and I will love you in every tomorrow… Insha Allah 💞
+  </p>
 </div>
 
 <!-- MISS ME BUTTON -->
@@ -332,6 +399,22 @@ function blastFlowers(){
     setTimeout(()=>f.remove(),6000);
   }
 }
+
+function generateFooterHearts() {
+  const footer = document.querySelector('.footer');
+  for (let i = 0; i < 8; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'floating-heart';
+    heart.textContent = '💖';
+    heart.style.left = Math.random() * 80 + '%';
+    heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+    footer.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+  }
+}
+
+// Trigger hearts every 3 seconds
+setInterval(generateFooterHearts, 3000);
 </script>
 
 </body>
